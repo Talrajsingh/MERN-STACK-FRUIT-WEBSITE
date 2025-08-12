@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
@@ -6,11 +6,16 @@ import { useAppContext } from '../context/AppContext'
 const Navbar = () => {
     const [open, setOpen] = React.useState(false)
 
-    const {user,setUser,setShowUserLogin,navigate} = useAppContext();
+    const {user,setUser,setShowUserLogin,navigate,setSearchQuery,searchQuery} = useAppContext();
     const logout = async ()=>{
         setUser(null);
         navigate('/');
     }
+    useEffect(()=>{
+        if(searchQuery.length>0){
+            navigate("/products")
+        }
+    },[searchQuery])
 
   return (
      <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
@@ -22,11 +27,13 @@ const Navbar = () => {
             {/* Desktop Menu */}
             <div className="hidden sm:flex items-center gap-8">
                 <NavLink to='/'>Home</NavLink>
-                <NavLink to='/product'>All Product</NavLink>
+                <NavLink to='/products'>All Product</NavLink>
                 <NavLink to='/'>Contact</NavLink>
 
                 <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
-                    <input className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
+                    <input onChange={(e) => setSearchQuery(e.target.value)}
+                     value={searchQuery}
+                    className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
                     <img src={assets.search_icon} alt="search" className='w-4 h-4' />
                 </div>
 
@@ -42,7 +49,7 @@ const Navbar = () => {
                 <img src={assets.profile_icon} className='w-10' alt="" />
                 <ul className='hidden group-hover:block absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40'>
                     <li onClick={()=>navigate("my-order")} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>My orders</li>
-                    <li onClick={()=>navigate("logout")} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>logout</li>
+                    <li onClick={logout} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>logout</li>
                 </ul>
                 </div>)}
             </div>

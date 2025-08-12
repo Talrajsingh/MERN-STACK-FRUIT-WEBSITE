@@ -37,7 +37,7 @@ const MainBanner = () => {
             className='group hidden md:flex items-center gap-2 px-9  py-3 cursor-pointer'>
             Explore deals
             <img
-              className='transition group-hover:translate-x-1'
+              className='transition group-hover:translate-x-1 bg-gray-800 p-1 rounded-full'
               src={assets.white_arrow_icon}
               alt='arrow'
             />
