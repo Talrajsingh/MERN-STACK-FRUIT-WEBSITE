@@ -54,10 +54,13 @@ const Navbar = () => {
                 </div>)}
             </div>
 
-            <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className="sm:hidden">
+            <div className='sm:hidden flex items-center gap-6'>
+            <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className=''>
                 {/* Menu Icon SVG */}
                 <img src={assets.menu_icon} alt="menu" />
             </button>
+            </div>
+
 
             {open && (
             <div className={`${open ? 'flex' : 'hidden'} absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}>
